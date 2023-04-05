@@ -1,0 +1,44 @@
+2023-03-30T12:33:58.515876Z 0 [Warning] Insecure configuration for --secure-file-priv: Current value does not restrict location of generated files. Consider setting it to a valid, non-empty path.
+2023-03-30T12:33:58.516287Z 0 [Note] C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin\mysqld (mysqld 5.7.33) starting as process 241560 ...
+2023-03-30T12:33:58.534325Z 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2023-03-30T12:33:58.535831Z 0 [Note] InnoDB: Uses event mutexes
+2023-03-30T12:33:58.536780Z 0 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2023-03-30T12:33:58.538407Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2023-03-30T12:33:58.539835Z 0 [Note] InnoDB: Number of pools: 1
+2023-03-30T12:33:58.541671Z 0 [Note] InnoDB: Not using CPU crc32 instructions
+2023-03-30T12:33:58.545353Z 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+2023-03-30T12:33:58.552238Z 0 [Note] InnoDB: Completed initialization of buffer pool
+2023-03-30T12:33:58.588683Z 0 [Note] InnoDB: Highest supported file format is Barracuda.
+2023-03-30T12:33:58.692919Z 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2023-03-30T12:33:58.694108Z 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2023-03-30T12:33:58.732076Z 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2023-03-30T12:33:58.741639Z 0 [Note] InnoDB: 96 redo rollback segment(s) found. 96 redo rollback segment(s) are active.
+2023-03-30T12:33:58.742623Z 0 [Note] InnoDB: 32 non-redo rollback segment(s) are active.
+2023-03-30T12:33:58.743827Z 0 [Note] InnoDB: Waiting for purge to start
+2023-03-30T12:33:58.807654Z 0 [Note] InnoDB: 5.7.33 started; log sequence number 2746831
+2023-03-30T12:33:58.808888Z 0 [Note] InnoDB: Loading buffer pool(s) from C:\Projets\www\GitHub\Maya\mysql\ib_buffer_pool
+2023-03-30T12:33:58.808925Z 0 [Note] Plugin 'FEDERATED' is disabled.
+2023-03-30T12:33:58.822758Z 0 [Note] Found ca.pem, server-cert.pem and server-key.pem in data directory. Trying to enable SSL support using them.
+2023-03-30T12:33:58.824007Z 0 [Note] Skipping generation of SSL certificates as certificate files are present in data directory.
+2023-03-30T12:33:58.826612Z 0 [Warning] CA certificate ca.pem is self signed.
+2023-03-30T12:33:58.827411Z 0 [Note] InnoDB: Buffer pool(s) load completed at 230330 14:33:58
+2023-03-30T12:33:58.827500Z 0 [Note] Skipping generation of RSA key pair as key files are present in data directory.
+2023-03-30T12:33:58.829429Z 0 [Note] Server hostname (bind-address): '*'; port: 3306
+2023-03-30T12:33:58.830285Z 0 [Note] IPv6 is available.
+2023-03-30T12:33:58.830759Z 0 [Note]   - '::' resolves to '::';
+2023-03-30T12:33:58.831340Z 0 [Note] Server socket created on IP: '::'.
+2023-03-30T12:33:58.882619Z 0 [Note] Event Scheduler: Loaded 0 events
+2023-03-30T12:33:58.883403Z 0 [Note] C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin\mysqld: ready for connections.
+Version: '5.7.33'  socket: ''  port: 3306  MySQL Community Server (GPL)
+2023-03-31T07:07:09.241691Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 58537100ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-03-31T09:10:50.794150Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 4524853ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-03-31T11:03:38.594981Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 4007209ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-03-31T14:55:18.970395Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 10801211ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-04-03T06:12:26.236608Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 227824232ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-04-03T10:55:13.300778Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 10800720ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-04-03T10:59:03.687637Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 226355ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-04-03T16:59:53.319469Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 10801045ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-04-04T09:22:25.488162Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 58948225ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-04-04T11:14:02.014662Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 4554351ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-04-04T17:55:35.129204Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 10800536ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-04-05T06:12:45.300006Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 44226674ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
