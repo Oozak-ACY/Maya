@@ -32,6 +32,24 @@ class Produit
     #[ORM\ManyToMany(targetEntity: Recette::class, mappedBy: 'produits')]
     private Collection $recettes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column]
+    private ?bool $cru = null;
+
+    #[ORM\Column]
+    private ?bool $cuit = null;
+
+    #[ORM\Column]
+    private ?bool $bio = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $debutDisponibilite = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $finDisponibilite = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -114,6 +132,78 @@ class Produit
         if ($this->recettes->removeElement($recette)) {
             $recette->removeProduit($this);
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function isCru(): ?bool
+    {
+        return $this->cru;
+    }
+
+    public function setCru(bool $cru): self
+    {
+        $this->cru = $cru;
+
+        return $this;
+    }
+
+    public function isCuit(): ?bool
+    {
+        return $this->cuit;
+    }
+
+    public function setCuit(bool $cuit): self
+    {
+        $this->cuit = $cuit;
+
+        return $this;
+    }
+
+    public function isBio(): ?bool
+    {
+        return $this->bio;
+    }
+
+    public function setBio(bool $bio): self
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getDebutDisponibilite(): ?\DateTimeInterface
+    {
+        return $this->debutDisponibilite;
+    }
+
+    public function setDebutDisponibilite(?\DateTimeInterface $debutDisponibilite): self
+    {
+        $this->debutDisponibilite = $debutDisponibilite;
+
+        return $this;
+    }
+
+    public function getFinDisponibilite(): ?\DateTimeInterface
+    {
+        return $this->finDisponibilite;
+    }
+
+    public function setFinDisponibilite(?\DateTimeInterface $finDisponibilite): self
+    {
+        $this->finDisponibilite = $finDisponibilite;
 
         return $this;
     }
