@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ProduitRepository;
+use App\Form\ProduitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Produit;
 use App\Entity\Categorie;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class ProduitController extends AbstractController
@@ -43,12 +46,61 @@ class ProduitController extends AbstractController
 
 
     #[Route('/produit', name: 'produit')]
-    public function index(): Response
+    public function index(ProduitRepository $repository): Response
     {
+        $lesProduits = $repository->findAll();
         return $this->render('produit/index.html.twig', [
-            'controller_name' => 'ProduitController',
+            'lesProduits' => $lesProduits,
         ]);
     }
+
+    #[Route('/produit/ajouter', name: 'produit_ajouter')]
+    public function ajouter(Produit $produit=null, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ProduitType::class, $produit);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            // cas où le formulaire d'ajout a été soumis par l'utilisateur et est valide
+            $produit = $form->getData();
+            // on met à jour la base de données 
+            $entityManager->persist($produit);
+            $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Le produit ' . $produit->getLibelle() . ' a été ajouté.'
+            );
+            return $this->redirectToRoute('produit');
+        } else {
+            // cas où l'utilisateur a demandé l'ajout, on affiche le formulaire d'ajout
+            return $this->render('produit/ajouter.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     #[Route('/produit/creer', name: 'produit_creer')]
     public function creerProduit(EntityManagerInterface $entityManager): Response
     {
@@ -156,20 +208,18 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/produits/{prix}', name: 'produit_lireProduits')]
-    public function lireProduits($prix)
+    public function lireProduits($prix, ProduitRepository $repository)
     {
-        $produits = $this->getDoctrine()
-            ->getRepository(Produit::class)
-            ->findAllGreaterThanPrice($prix);
+        // $produits = $this->getDoctrine()
+        //     ->getRepository(Produit::class)
+        //     ->findAllGreaterThanPrice($prix);
 
         // OU
         // $repository = $this->getDoctrine()->getRepository(Produit::class);
         // $produits = $repository->findAllGreaterThanPrice($prix);
 
         // OU
-        //  ajouter :                   use App\Repository\ProduitRepository;
-        // injecter le repository :      public function lireProduits($prix, ProduitRepository $repository)
-        //  et écrire    :      $produits = $repository->findAllGreaterThanPrice($prix);
+        $produits = $repository->findAllGreaterThanPrice($prix);
 
         return new Response('Voici le nombre de produits : '.sizeof($produits));
     }

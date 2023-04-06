@@ -42,3 +42,6 @@ Version: '5.7.33'  socket: ''  port: 3306  MySQL Community Server (GPL)
 2023-04-04T11:14:02.014662Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 4554351ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
 2023-04-04T17:55:35.129204Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 10800536ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
 2023-04-05T06:12:45.300006Z 0 [Note] InnoDB: page_cleaner: 1000ms intended loop took 44226674ms. The settings might not be optimal. (flushed=0 and evicted=0, during the time.)
+2023-04-06T13:57:06.735005Z 0 [Warning] Insecure configuration for --secure-file-priv: Current value does not restrict location of generated files. Consider setting it to a valid, non-empty path.
+2023-04-06T13:57:06.735398Z 0 [ERROR] Cannot open Windows EventLog; check privileges, or start server with --log_syslog=0
+2023-04-06T13:57:06.735413Z 0 [Note] D:\Logiciels\laragon\bin\mysql\mysql-5.7.24-winx64\bin\mysqld (mysqld 5.7.24) starting as process 2572 ...

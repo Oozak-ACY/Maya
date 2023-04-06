@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -17,9 +18,21 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 40)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 3,
+        max: 40,
+        minMessage: "Ce libelle est trop court",
+        maxMessage: "Ce libelle est trop long"
+    )]
     private ?string $libelle = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 7, scale: 2)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 0.1,
+        max: 999,
+    )]
     private ?string $prix = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -33,6 +46,13 @@ class Produit
     private Collection $recettes;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 15,
+        max: 255,
+        minMessage: "Cette description est trop courte",
+        maxMessage: "Cette description est trop longue"
+    )]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -45,9 +65,15 @@ class Produit
     private ?bool $bio = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\Type("\DateTime")]
     private ?\DateTimeInterface $debutDisponibilite = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\Type("\DateTime")]
+    #[Assert\Range(
+        min: propertyPath: "debutDisponibilite",
+        message: "La valeur doit être supérieure ou égale à la date de début de disponibilité."
+    )]
     private ?\DateTimeInterface $finDisponibilite = null;
 
     public function getId(): ?int
