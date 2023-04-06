@@ -15,7 +15,7 @@ class ClientController extends AbstractController
 {
     #[Route('/client', name: 'client')]
     #[Route('/client/demandermodification/{id<\d+>}', name: 'client_demandermodification')]
-    public function index(ClientRepository $repository, $id = null): Response
+    public function index(ClientRepository $repository, Request $request, $id = null): Response
     {
 
         // créer l'objet et le formulaire de création

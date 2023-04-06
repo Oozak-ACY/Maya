@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenements{% endblock %}
+
+{% block body %}
+<div class="col-md-12 contenu-blanc">
+
+    <h1>Les <span> {{  lesEvenements | length }}  </span>Evenements</h1>
+    {{ include('messages.html.twig') }}
+    <div class="contenu">
+        <table class="table table-striped table-advance table-hover">
+            <thead>
+            <tr class="bg-entete">
+                <th>Identifiant</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Horaires</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- formulaire pour ajouter un nouveau evenement-->
+            <tr>
+                {{ form_start(formCreation) }}
+                    <td class="col-md-1">Nouveau</td>
+                    <td class="col-md-2">{{ form_widget(formCreation.titre) }}  {{ form_errors(formCreation.titre) }}</td>
+                    <td class="col-md-3">{{ form_widget(formCreation.description) }}  {{ form_errors(formCreation.description) }}</td>
+                    <td class="col-md-2">{{ form_widget(formCreation.date) }}  {{ form_errors(formCreation.date) }}</td>
+                    <td class="col-md-2">{{ form_widget(formCreation.horaires) }}  {{ form_errors(formCreation.horaires) }}</td>
+                    <td class="col-md-1"><button class="btn btn-primary btn-sm" type="submit" formaction="{{ path('evenement_ajouter') }}" title="Enregistrer nouveau evenement"><i class="fa fa-save"></i> Enregistrer</button>
+                        <button class="btn btn-info btn-sm" type="reset" title="Effacer la saisie"><i class="fa fa-eraser"></i> Annuler </button></td>
+                    {# Ceci va générer le champ CSRF #}
+                    {{ form_rest(formCreation) }}
+                {{ form_end(formCreation) }}
+            </tr>
+
+            {% for key, evenement in lesEvenements %}
+                <tr>
+                    {% if evenement.id != idEvenementModif %}
+                        <td>{{ evenement.id }}</td>
+                        <td>{{ evenement.titre }}</td>
+                        <td>{{ evenement.description }}</td>
+                        <td>{{ evenement.date|date('d/m/Y') }}</td>
+                        <td>{{ evenement.horaires ? evenement.horaires.format('H:i') : '' }}</td>
+                        <!-- formulaire pour demander la modification ou la suppression -->
+                        <td><form>
+                                <button type="submit" class="btn btn-primary btn-sm" formaction="{{ path('evenement_demandermodification', {'id' : evenement.id }) }}" title="Modifier"><i class="fa fa-pencil"></i> Modifier</button>
+                                <button class="btn btn-danger btn-sm" type="submit" formaction="{{ path('evenement_supprimer', {'id' : evenement.id }) }}" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer cette catégorie ?');"><i class="fa fa-trash-o "></i> Supprimer</button>
+                                <input type = "hidden" name="_token" value="{{ csrf_token('action-item' ~ evenement.id) }}">     {#  ~     pour concaténer des chaines en twig #}
+                            </form>
+                        </td>
+                    {% else %}
+
+                        <!-- formulaire pour modifier un evenement -->
+                        {{ form_start(formModification) }}
+                        <td>{{ evenement.id }}</td>
+                        <td>{{ form_widget(formModification.titre) }} {{ form_errors(formModification.titre) }}</td>
+                        <td>{{ form_widget(formModification.description) }} {{ form_errors(formModification.description) }}</td>
+                        <td>{{ form_widget(formModification.date) }} {{ form_errors(formModification.date) }}</td>
+                        <td>{{ form_widget(formModification.horaires) }} {{ form_errors(formModification.horaires) }}</td>
+                        <td class="col-md-4">
+                            <button class="btn btn-primary btn-sm" type="submit" formaction="{{ path('evenement_modifier', {'id' : evenement.id }) }}"  title="Enregistrer"><i class="fa fa-save"></i> Enregistrer</button>
+                            <button class="btn btn-info btn-sm" type="reset" title="Effacer la saisie"><i class="fa fa-eraser"></i> Effacer</button>
+                            <button class="btn btn-warning btn-sm" type="submit" formaction="{{ path('evenement') }}" title="Annuler"><i class="fa fa-undo"></i> Annuler</button>
+                        </td>
+                        {# Ceci va générer le champ CSRF #}
+                        {{ form_rest(formModification) }}
+                        {{ form_end(formModification) }}
+                    {% endif %}
+             
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div> <!--fin div contenu-->
+</div> <!--fin div col-md-6-->
+{% endblock %}

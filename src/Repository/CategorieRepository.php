@@ -39,6 +39,22 @@ class CategorieRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findProduitByCategorie()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+               'SELECT c.libelle, COUNT(p.id) AS nbProduits, MIN(p.prix) AS minPrix, MAX(p.prix) AS maxPrix
+               FROM App\Entity\Categorie c
+               JOIN c.produits p
+               GROUP BY c.id
+               ORDER BY c.libelle ASC'
+
+        );
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
 //     */

@@ -15,18 +15,19 @@ class CategorieController extends AbstractController
 {
     #[Route('/categorie', name: 'categorie')]
     #[Route('/categorie/demandermodification/{id<\d+>}', name: 'categorie_demandermodification')]
-    public function index(CategorieRepository $repository, $id = null): Response
+    public function index(CategorieRepository $repository, Request $request, $id = null): Response
     {
         // créer l'objet et le formulaire de création
         $categorie = new Categorie();
         $formCreation = $this->createForm(CategorieType::class, $categorie);
 
-        // si 2e route alors $id est renseigné et on  crée le formulaire de modification
+        $formModificationView = null;
         if ($id != null) {
-            $categorieModif = $repository->find($id);   // la catégorie à modifier
-            $formModificationView = $this->createForm(CategorieType::class, $categorieModif)->createView();
-        } else {
-            $formModificationView = null;
+            // sécurité supplémentaire, on vérifie le token
+            if ($this->isCsrfTokenValid('action-item'.$id, $request->get('_token'))) {
+                $categorieModif = $repository->find($id);   // la catégorie à modifier
+                $formModificationView = $this->createForm(CategorieType::class, $categorieModif)->createView();
+            }
         }
 
 
