@@ -70,10 +70,6 @@ class Produit
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Assert\Type("\DateTime")]
-    #[Assert\Range(
-        min: propertyPath: "debutDisponibilite",
-        message: "La valeur doit être supérieure ou égale à la date de début de disponibilité."
-    )]
     private ?\DateTimeInterface $finDisponibilite = null;
 
     public function getId(): ?int

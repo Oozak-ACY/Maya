@@ -4,11 +4,40 @@
 
 {% block body %}
 
-    <div class="col-lg-12  contenu-blanc shadow-lg">
+    <div class="col-lg-12 contenu-blanc shadow-lg">
 
         <h1>Les produits</h1>
         {{ include('messages.html.twig') }}
+        {# formulaire de recherche des produits #}
+        {{ form_start(formRecherche) }}
         <div class="container-fluid contenu">
+            <div class="row">
+                <div class="col-md-8 row font-weight-bold">
+                    <div class="col-md-6">{{ form_label(formRecherche.libelle) }}</div>
+                    <div class="col-md-3">{{ form_label(formRecherche.prixMini) }}</div>
+                    <div class="col-md-3">{{ form_label(formRecherche.prixMaxi) }}</div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-8 row">
+                    <div class="col-md-6">{{ form_widget(formRecherche.libelle) }}</div>
+                    <div class="col-md-3">{{ form_widget(formRecherche.prixMini) }}</div>
+                    <div class="col-md-3">{{ form_widget(formRecherche.prixMaxi) }}</div>
+                </div>
+
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-sm" type="submit" formaction="{{ path('produit') }}" title="Afficher les produits"><i class="fa fa-save"></i> Afficher</button>
+                    <button class="btn btn-info btn-sm" type="reset" title="Effacer la saisie"><i class="fa fa-eraser"></i> Effacer</button>
+                </div>
+
+            </div>
+        </div>
+        {{ form_end(formRecherche) }}
+
+        <div class="container-fluid contenu">
+
 
             <table class="table table-striped table-advance table-hover">
                 <thead>
@@ -32,8 +61,8 @@
 
                         <!-- formulaire pour demander la modification ou la suppression -->
                             <form>
-                                <button type="submit" class="btn btn-primary btn-sm" formaction="" title="Modifier"><i class="fa fa-pencil"></i> Modifier</button>
-                                <button type="submit" class="btn btn-danger btn-sm"  formaction=""  title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');"><i class="fa fa-trash-o "></i> Supprimer</button>
+                                <button type="submit" class="btn btn-primary btn-sm" formaction="{{ path('produit_modifier', {'id' : produit.id }) }}" title="Modifier"><i class="fa fa-pencil"></i> Modifier</button>
+                                <button type="submit" class="btn btn-danger btn-sm"  formaction= "{{ path('produit_supprimer', {'id' : produit.id }) }}"  title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');"><i class="fa fa-trash-o "></i> Supprimer</button>
                                 <input type = "hidden" name="_token" value="{{ csrf_token('action-item' ~ produit.id) }}">  {#  ~     pour concaténer des chaines en twig #}
                             </form>
 
