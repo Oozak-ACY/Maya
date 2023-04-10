@@ -16,6 +16,9 @@ class ProduitRecherche
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $libelle = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $categorie = null;
+
     #[ORM\Column(nullable: true)]
     private ?float $prixMini = null;
 
@@ -37,6 +40,11 @@ class ProduitRecherche
         $this->libelle = $libelle;
 
         return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
     }
 
     public function getPrixMini(): ?float

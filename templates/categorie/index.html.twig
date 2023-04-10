@@ -29,7 +29,7 @@
                     {{ form_rest(formCreation) }}
                 {{ form_end(formCreation) }}
             </tr>
-
+            
             {% for key, categorie in lesCategories %}
                 <tr>
                     {% if categorie.id != idCategorieModif %}
@@ -58,6 +58,7 @@
                         {{ form_end(formModification) }}
                     {% endif %}
                 </tr>
+                
             {% endfor %}
             </tbody>
         </table>

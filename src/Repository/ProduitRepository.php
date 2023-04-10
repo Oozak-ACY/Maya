@@ -92,6 +92,11 @@ class ProduitRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    /**
+     * @return Produit[]
+     */
+
+
 
     /**
     * @return Produit[]

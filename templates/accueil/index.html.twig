@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="col-md-12 contenu-blanc">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Les <span> Catégories de produits  </span></h1>
+    {{ include('messages.html.twig') }}
+    <div class="contenu container">
+        <div class="card-columns">
+            {% set compteur = 0 %}
+            {% set tbCouleurs = ['success', 'danger', 'warning', 'primary', 'light', 'info'] %}
+            {% for key, categorie in lesCategories %}
+                <a href ="{{ path('produit')}}" style="text-decoration:none; color: inherit;">   
+                    <div class="card bg-{{ tbCouleurs[compteur]}}">
+                        <div class="card-body text-center">
+                            <h1 class="card-text">{{ categorie.libelle }}</h1>
+                        </div>
+                    </div>
+                </a>
+                {% set compteur = (compteur + 1) % tbCouleurs|length %}
+            {% endfor %}
+        </div>
+    </div> <!--fin div contenu-->
+</div> <!--fin div col-md-6-->
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Projets/www/GitHub/Maya/src/Controller/AccueilController.php'|file_link(0) }}">src/Controller/AccueilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Projets/www/GitHub/Maya/templates/accueil/index.html.twig'|file_link(0) }}">templates/accueil/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}

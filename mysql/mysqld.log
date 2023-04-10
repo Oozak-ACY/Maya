@@ -45,3 +45,6 @@ Version: '5.7.33'  socket: ''  port: 3306  MySQL Community Server (GPL)
 2023-04-06T13:57:06.735005Z 0 [Warning] Insecure configuration for --secure-file-priv: Current value does not restrict location of generated files. Consider setting it to a valid, non-empty path.
 2023-04-06T13:57:06.735398Z 0 [ERROR] Cannot open Windows EventLog; check privileges, or start server with --log_syslog=0
 2023-04-06T13:57:06.735413Z 0 [Note] D:\Logiciels\laragon\bin\mysql\mysql-5.7.24-winx64\bin\mysqld (mysqld 5.7.24) starting as process 2572 ...
+2023-04-10T13:55:27.640393Z 0 [Warning] Insecure configuration for --secure-file-priv: Current value does not restrict location of generated files. Consider setting it to a valid, non-empty path.
+2023-04-10T13:55:27.640803Z 0 [ERROR] Cannot open Windows EventLog; check privileges, or start server with --log_syslog=0
+2023-04-10T13:55:27.640817Z 0 [Note] D:\Logiciels\laragon\bin\mysql\mysql-5.7.24-winx64\bin\mysqld (mysqld 5.7.24) starting as process 2712 ...

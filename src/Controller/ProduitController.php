@@ -137,6 +137,7 @@ class ProduitController extends AbstractController
 
 
 
+
     // #[Route('/produit/creer', name: 'produit_creer')]
     // public function creerProduit(EntityManagerInterface $entityManager): Response
     // {
