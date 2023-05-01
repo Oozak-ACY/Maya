@@ -16,15 +16,8 @@ class Categorie
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 3,
-        max: 50,
-        minMessage: "Ce libellé est trop court",
-        maxMessage: "Ce libellé est trop long"
-    )]
-    
+    #[ORM\Column(length: 50)]     #[Assert\NotBlank]     #[Assert\Length(min: 3, max: 50, minMessage: "Ce libellé est trop court", maxMessage: "Ce libellé est trop long")]
+
     private ?string $libelle = null;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Produit::class)]

@@ -12,10 +12,11 @@ class FournisseurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('nom')
             ->add('adresse')
             ->add('mail')
             ->add('telephone')
+            ->add('dateRelation')
             ->add('nomContact')
         ;
     }

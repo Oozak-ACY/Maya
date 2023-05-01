@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block body %}
+    <div class="container contenu-blanc">
+        <h1>Modifier un client</h1>
+        {{ include('client/client.html.twig', {form: form, button: 'Enregistrer'}) }}
+    </div>
+{% endblock %}

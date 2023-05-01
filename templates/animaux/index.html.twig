@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Animaux{% endblock %}
+
+{% block body %}
+    <div class="col-md-12 contenu-blanc">
+
+        <h1>Les <span> {{  lesAnimaux | length }}  </span>animaux</h1>
+        {{ include('messages.html.twig') }}
+        <div class="contenu">
+            <table class="table table-striped table-advance table-hover">
+                <thead>
+                <tr class="bg-entete">
+                    <th>Nom</th>
+                    <th>Race</th>
+                    <th>Date de naissance</th>
+                    <th class="col-md-2">Actions<span class="pull-right" ><a href="{{ path('animaux_ajouter')}}" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Ajouter nouvel animal</a></span></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for key, animal in lesAnimaux %}
+                    <tr>
+                            <td>{{ animal.nom}}</td>
+                            <td>{{ animal.race.libelle }}</td>
+                            <td>{{ animal.getDateNaissance|date('d/m/Y') }}</td>
+                            <!-- formulaire pour demander la modification ou la suppression -->
+                            <td><form>
+                                    <button type="submit" class="btn btn-primary btn-sm" formaction="{{ path('animaux_modifier', {'id' : animal.id }) }}" title="Modifier"><i class="fa fa-pencil"></i> Modifier</button>
+                                    <button class="btn btn-danger btn-sm" type="submit" formaction="{{ path('animaux_supprimer', {'id' : animal.id }) }}" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer cette catégorie ?');"><i class="fa fa-trash-o "></i> Supprimer</button>
+                                    <input type = "hidden" name="_token" value="{{ csrf_token('action-item' ~ animal.id) }}">  {#  ~     pour concaténer des chaines en twig #}
+                                </form>
+                            </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div> <!--fin div contenu-->
+    </div> <!--fin div col-md-6-->
+{% endblock %}

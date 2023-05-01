@@ -17,12 +17,26 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 40)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 3,
+        max: 40,
+        minMessage: "Libellé trop court",
+        maxMessage: "Libellé trop long"
+    )]
     private ?string $libelle = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 7, scale: 2)]
+
+    #[Assert\NotBlank(message: "Prix obligatoire")]
+    #[Assert\Range(
+        min: 0.1,
+        max: 999
+    )]
     private ?string $prix = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $dateCreation = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
@@ -33,6 +47,13 @@ class Produit
     private Collection $recettes;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "Description obligatoire")]
+    #[Assert\Length(
+        min: 15,
+        max: 255,
+        minMessage: "Description trop courte",
+        maxMessage: "Description trop longue"
+    )]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -45,10 +66,17 @@ class Produit
     private ?bool $bio = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $debutDisponibilite = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\Type("\DateTimeInterface")]
+    #[Assert\Range(
+        minPropertyPath: "debutDisponibilite"
+    )]
     private ?\DateTimeInterface $finDisponibilite = null;
+
+
 
     public function getId(): ?int
     {
@@ -79,6 +107,17 @@ class Produit
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->libelle;
+    }
+
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTime('now');
+        $this->recettes = new ArrayCollection();
+    }
+
     public function getDateCreation(): ?\DateTimeInterface
     {
         return $this->dateCreation;
@@ -89,12 +128,6 @@ class Produit
         $this->dateCreation = $dateCreation;
 
         return $this;
-    }
-
-    public function __construct()
-    {
-        $this->dateCreation = new \DateTime('now');
-        $this->recettes = new ArrayCollection();
     }
 
     public function getCategorie(): ?Categorie
@@ -207,5 +240,4 @@ class Produit
 
         return $this;
     }
-
 }

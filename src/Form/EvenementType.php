@@ -6,6 +6,10 @@ use App\Entity\Evenement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
+
 
 class EvenementType extends AbstractType
 {
@@ -13,9 +17,9 @@ class EvenementType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('description')
-            ->add('date')
-            ->add('horaires')
+            ->add('description', TextareaType::class)
+            ->add('date', DateType::class)
+            ->add('horaire', TimeType::class)
         ;
     }
 

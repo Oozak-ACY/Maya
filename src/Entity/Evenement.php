@@ -14,31 +14,17 @@ class Evenement
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 150)]
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 2,
-        max: 150,
-        minMessage: "Ce titre est trop court",
-        maxMessage: "Ce titre est trop long"
-    )]
+    #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 3,
-        max: 255,
-        minMessage: "Cette description est trop courte",
-        maxMessage: "Cette description est trop longue"
-    )]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $horaires = null;
+    private ?\DateTimeInterface $horaire = null;
 
     public function getId(): ?int
     {
@@ -81,14 +67,14 @@ class Evenement
         return $this;
     }
 
-    public function getHoraires(): ?\DateTimeInterface
+    public function getHoraire(): ?\DateTimeInterface
     {
-        return $this->horaires;
+        return $this->horaire;
     }
 
-    public function setHoraires(\DateTimeInterface $horaires): self
+    public function setHoraire(\DateTimeInterface $horaire): self
     {
-        $this->horaires = $horaires;
+        $this->horaire = $horaire;
 
         return $this;
     }

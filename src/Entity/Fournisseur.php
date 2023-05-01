@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FournisseurRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FournisseurRepository::class)]
@@ -13,19 +14,22 @@ class Fournisseur
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $name = null;
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $mail = null;
 
-    #[ORM\Column(length: 15)]
+    #[ORM\Column(length: 255)]
     private ?string $telephone = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $dateRelation = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $nomContact = null;
 
     public function getId(): ?int
@@ -33,14 +37,14 @@ class Fournisseur
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNom(): ?string
     {
-        return $this->name;
+        return $this->nom;
     }
 
-    public function setName(string $name): self
+    public function setNom(string $nom): self
     {
-        $this->name = $name;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -77,6 +81,18 @@ class Fournisseur
     public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getDateRelation(): ?\DateTimeInterface
+    {
+        return $this->dateRelation;
+    }
+
+    public function setDateRelation(\DateTimeInterface $dateRelation): self
+    {
+        $this->dateRelation = $dateRelation;
 
         return $this;
     }

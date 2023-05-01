@@ -5,11 +5,11 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class CategorieController extends AbstractController
 {
@@ -17,19 +17,28 @@ class CategorieController extends AbstractController
     #[Route('/categorie/demandermodification/{id<\d+>}', name: 'categorie_demandermodification')]
     public function index(CategorieRepository $repository, Request $request, $id = null): Response
     {
+
         // créer l'objet et le formulaire de création
         $categorie = new Categorie();
         $formCreation = $this->createForm(CategorieType::class, $categorie);
 
+        // si 2e route alors $id est renseigné et on  crée le formulaire de modification
         $formModificationView = null;
         if ($id != null) {
             // sécurité supplémentaire, on vérifie le token
-            if ($this->isCsrfTokenValid('action-item'.$id, $request->get('_token'))) {
+            if ($this->isCsrfTokenValid('action-item' . $id, $request->get('_token'))) {
                 $categorieModif = $repository->find($id);   // la catégorie à modifier
                 $formModificationView = $this->createForm(CategorieType::class, $categorieModif)->createView();
             }
         }
 
+        // si 2e route alors $id est renseigné et on  crée le formulaire de modification
+        if ($id != null) {
+            $categorieModif = $repository->find($id);   // la catégorie à modifier
+            $formModificationView = $this->createForm(CategorieType::class, $categorieModif)->createView();
+        } else {
+            $formModificationView = null;
+        }
 
         // lire les catégories
         $lesCategories = $repository->findAll();
@@ -38,10 +47,13 @@ class CategorieController extends AbstractController
             'lesCategories' => $lesCategories,
             'formModification' => $formModificationView,
             'idCategorieModif' => $id,
+
+
         ]);
     }
+
     #[Route('/categorie/ajouter', name: 'categorie_ajouter')]
-    public function ajouter(Categorie $categorie = null, Request $request, EntityManagerInterface $entityManager, CategorieRepository $repository)
+    public function ajouter(Request $request, EntityManagerInterface $entityManager, CategorieRepository $repository, Categorie $categorie = null)
     {
         //  $categorie objet de la classe Categorie, il contiendra les valeurs saisies dans les champs après soumission du formulaire.
         //  $request  objet avec les informations de la requête HTTP (GET, POST, ...)
@@ -70,9 +82,8 @@ class CategorieController extends AbstractController
             );
             // rediriger vers l'affichage des catégories qui comprend le formulaire pour l"ajout d'une nouvelle catégorie
             return $this->redirectToRoute('categorie');
-
         } else {
-    // affichage de la liste des catégories avec le formulaire de création et ses erreurs
+            // affichage de la liste des catégories avec le formulaire de création et ses erreurs
             // lire les catégories
             $lesCategories = $repository->findAll();
             // rendre la vue
@@ -85,8 +96,9 @@ class CategorieController extends AbstractController
         }
     }
 
+
     #[Route('/categorie/modifier/{id<\d+>}', name: 'categorie_modifier')]
-    public function modifier(Categorie $categorie = null, $id = null, Request $request, EntityManagerInterface $entityManager, CategorieRepository $repository)
+    public function modifier(Request $request, EntityManagerInterface $entityManager, CategorieRepository $repository, Categorie $categorie = null, $id = null)
     {
         //  Symfony 4 est capable de retrouver la catégorie à l'aide de Doctrine ORM directement en utilisant l'id passé dans la route
         $form = $this->createForm(CategorieType::class, $categorie);
@@ -97,11 +109,10 @@ class CategorieController extends AbstractController
             $entityManager->flush();
             $this->addFlash(
                 'success',
-                'La catégorie '.$categorie->getLibelle().' a été modifiée.'
+                'La catégorie ' . $categorie->getLibelle() . ' a été modifiée.'
             );
             // rediriger vers l'affichage des catégories qui comprend le formulaire pour l"ajout d'une nouvelle catégorie
             return $this->redirectToRoute('categorie');
-
         } else {
             // affichage de la liste des catégories avec le formulaire de modification et ses erreurs
             // créer l'objet et le formulaire de création
@@ -120,13 +131,13 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/categorie/supprimer/{id<\d+>}', name: 'categorie_supprimer')]
-    public function supprimer(Categorie $categorie = null, Request $request, EntityManagerInterface $entityManager)
+    public function supprimer(Request $request, EntityManagerInterface $entityManager, Categorie $categorie = null)
     {
         // vérifier le token
-        if ($this->isCsrfTokenValid('action-item'.$categorie->getId(), $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('action-item' . $categorie->getId(), $request->get('_token'))) {
             if ($categorie->getProduits()->count() > 0) {
                 $this->addFlash(
-                    'error',
+                    'warning',
                     'Il existe des produits dans la catégorie ' . $categorie->getLibelle() . ', elle ne peut pas être supprimée.'
                 );
                 return $this->redirectToRoute('categorie');
@@ -140,6 +151,15 @@ class CategorieController extends AbstractController
             );
         }
         return $this->redirectToRoute('categorie');
+    }
+
+    #[Route('/categorie/stat', name: 'categorie_stat')]
+    public function stat(CategorieRepository $repository){
+        $lesCategories = $repository->findStatCateg();
+
+        return $this->render('categorie/stat.html.twig', [
+            'lesCategories' => $lesCategories,
+        ]);
     }
 
 }

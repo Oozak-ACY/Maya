@@ -72,3 +72,48 @@ h1 {
   line-height: 40px;
   padding: 10px;
  }
+
+ .example-wrapper { 
+  margin: 1em auto; 
+  max-width: 800px; 
+  width: 95%; 
+  font: 18px/1.5 sans-serif; 
+}
+
+ .example-wrapper code { 
+  background: #F5F5F5; 
+  padding: 2px 6px; 
+}
+
+/* météo */
+.conteneur {
+  background-color: #f1f8e9;
+  border: 2px solid #689f38;
+  border-radius: 6px;
+  line-height: 25px;
+  font-family: Arial;
+  color: #859288;
+  padding: 20px;
+  width: 300px;
+  margin: 0 auto;
+  box-shadow: 5px 5px 10px #689f38;
+}
+
+h2 {
+  text-align: center;
+  text-shadow: 2px 2px 5px #689f38;
+}
+
+.temps-icone {
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.temps-previsions {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+span.temperature {
+  margin-left: 15px;
+}

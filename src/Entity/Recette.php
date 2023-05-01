@@ -6,6 +6,7 @@ use App\Repository\RecetteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RecetteRepository::class)]
 class Recette
@@ -16,6 +17,13 @@ class Recette
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\NotBlank(message: "Nom obligatoire")]
+    #[Assert\Length(
+        min: 3,
+        max: 40,
+        minMessage: "Nom trop court",
+        maxMessage: "Nom trop long"
+    )]
     private ?string $nom = null;
 
     #[ORM\ManyToMany(targetEntity: Produit::class, inversedBy: 'recettes')]
@@ -42,6 +50,7 @@ class Recette
 
         return $this;
     }
+
 
     /**
      * @return Collection<int, Produit>
