@@ -137,7 +137,7 @@ class RacesAnimauxController extends AbstractController
             if ($racesAnimaux->getAnimaux()->count() > 0) {
                 $this->addFlash(
                     'warning',
-                    'Il existe des produits dans la catégorie ' . $racesAnimaux->getLibelle() . ', elle ne peut pas être supprimée.'
+                    'Il existe des animaux pour la race ' . $racesAnimaux->getLibelle() . ', elle ne peut pas être supprimée.'
                 );
                 return $this->redirectToRoute('races_animaux');
             }

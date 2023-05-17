@@ -242,3 +242,6 @@ Version: '5.7.33'  socket: ''  port: 3306  MySQL Community Server (GPL)
 2023-05-17T12:46:36.311541Z 0 [Note] Shutting down plugin 'binlog'
 2023-05-17T12:46:36.324272Z 0 [Note] C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin\mysqld: Shutdown complete
 
+2023-05-17T13:00:24.336213Z 0 [Warning] Insecure configuration for --secure-file-priv: Current value does not restrict location of generated files. Consider setting it to a valid, non-empty path.
+2023-05-17T13:00:24.336693Z 0 [ERROR] Cannot open Windows EventLog; check privileges, or start server with --log_syslog=0
+2023-05-17T13:00:24.336711Z 0 [Note] D:\Logiciels\laragon\bin\mysql\mysql-5.7.24-winx64\bin\mysqld (mysqld 5.7.24) starting as process 10504 ...
